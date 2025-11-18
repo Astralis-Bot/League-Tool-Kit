@@ -1,3 +1,4 @@
+from PIL import Image
 import customtkinter as ctk 
 from tkinter import messagebox 
 import sys 
@@ -163,10 +164,10 @@ class LeagueToolkitApp(ctk.CTk):
         try:
             icon_path = self.colors.get('icon_file', 'tiamat.ico')
             
-            # Verifica se o arquivo existe
+
             if not os.path.exists(icon_path):
                 print(f"⚠️ Arquivo de ícone não encontrado: {icon_path}")
-                # Tenta caminhos alternativos
+
                 alternative_paths = [
                     'assets/tiamat.ico',
                     'ui/assets/tiamat.ico',
@@ -183,21 +184,17 @@ class LeagueToolkitApp(ctk.CTk):
                     print("❌ Ícone não encontrado em nenhum caminho")
                     return
             
-            # Para Windows: usa iconbitmap para .ico
             if sys.platform == 'win32' and icon_path.endswith('.ico'):
                 self.iconbitmap(icon_path)
                 print(f"✅ Ícone .ico carregado: {icon_path}")
             
-            # Para PNG ou outros formatos (ou como fallback)
             elif icon_path.endswith(('.png', '.jpg', '.jpeg')):
                 icon_image = Image.open(icon_path)
-                # Redimensiona se necessário
                 icon_image = icon_image.resize((32, 32), Image.Resampling.LANCZOS)
                 photo = ctk.CTkImage(light_image=icon_image, dark_image=icon_image, size=(32, 32))
                 self.iconphoto(True, photo)
                 print(f"✅ Ícone de imagem carregado: {icon_path}")
             
-            # Se você tem um .ico mas quer usar também como PhotoImage (para compatibilidade)
             elif icon_path.endswith('.ico'):
                 try:
                     icon_image = Image.open(icon_path)
