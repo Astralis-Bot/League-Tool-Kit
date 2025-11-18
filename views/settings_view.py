@@ -1,39 +1,36 @@
-"""
-Settings View - Configurações do aplicativo
-"""
-import customtkinter as ctk
-from ui.theme.theme_switcher_ui import ThemeSettingsView
+
+import customtkinter as ctk 
+from ui .theme .theme_switcher_ui import ThemeSettingsView 
 
 
-class SettingsView:
-    """View de configurações"""
-    
-    def __init__(self, colors, theme):
-        self.colors = colors
-        self.theme = theme
-    
-    def create(self, parent, on_theme_change):
-        """Cria a view de settings"""
-        grid = ctk.CTkFrame(parent, fg_color="transparent")
-        grid.pack(fill="both", expand=True)
-        
-        # Título
-        title = ctk.CTkLabel(
-            grid,
-            text="⚙️ SETTINGS",
-            font=("Consolas", 20, "bold"),
-            text_color=self.colors['primary']
+class SettingsView :
+
+
+    def __init__ (self ,colors ,theme ):
+        self .colors =colors 
+        self .theme =theme 
+
+    def create (self ,parent ,on_theme_change ):
+
+        grid =ctk .CTkFrame (parent ,fg_color ="transparent")
+        grid .pack (fill ="both",expand =True )
+
+
+        title =ctk .CTkLabel (
+        grid ,
+        text ="⚙️ SETTINGS",
+        font =("Consolas",20 ,"bold"),
+        text_color =self .colors ['primary']
         )
-        title.pack(anchor="w", pady=(0, 20))
-        
-        # Gerenciador de temas
-        theme_view = ThemeSettingsView(
-            grid,
-            on_theme_change=on_theme_change,
-            fg_color=self.colors['bg_medium']
+        title .pack (anchor ="w",pady =(0 ,20 ))
+
+        theme_view =ThemeSettingsView (
+        grid ,
+        on_theme_change =on_theme_change ,
+        fg_color =self .colors ['bg_medium']
         )
-        theme_view.pack(fill="both", expand=True)
-    
-    def update_colors(self, colors):
-        """Atualiza as cores da view"""
-        self.colors = colors
+        theme_view .pack (fill ="both",expand =True )
+
+    def update_colors (self ,colors ):
+
+        self .colors =colors 

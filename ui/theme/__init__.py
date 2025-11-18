@@ -1,3 +1,3 @@
-from .theme_manager import ThemeManager
+from .theme_manager import ThemeManager 
 
-__all__ = ['ThemeManager']
+__all__ =['ThemeManager']
