@@ -48,10 +48,10 @@ This feature is currently under development.
 ## 📦 Releases
 
 🔽 **Latest Release (BETA)**  
-➡️ [Download v2.0](https://github.com/younk5/League-Tool-Kit/releases/latest)
+➡️ [Download v2.0](https://github.com/Astralis-Bot/League-Tool-Kit/releases/latest)
 
 All releases:  
-➡️ https://github.com/younk5/League-Tool-Kit/releases
+➡️ https://github.com/Astralis-Bot/League-Tool-Kit/releases
 
 ---
 
