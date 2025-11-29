@@ -1,63 +1,109 @@
+"""
+LEAGUE TOOLKIT - UI Configuration
+Central configuration for UI layout, spacing, fonts, and sidebar
+Themes are managed by theme_manager.py
+"""
 
-
-THEME ={
-'fonts':{
-'title':("Consolas",24 ,"bold"),
-'heading':("Consolas",18 ,"bold"),
-'subheading':("Consolas",14 ,"bold"),
-'body':("Consolas",11 ),
-'small':("Consolas",9 )
-},
-'spacing':{
-'xs':4 ,
-'sm':8 ,
-'md':12 ,
-'lg':20 ,
-'xl':30 
-},
-'radius':{
-'sm':6 ,
-'md':10 ,
-'lg':15 
+# ============================================================
+# UI THEME SETTINGS (Design System)
+# ============================================================
+THEME = {
+    'fonts': {
+        'title': ("Segoe UI", 28, "bold"),
+        'heading': ("Segoe UI Semibold", 22, "bold"),
+        'subheading': ("Segoe UI", 16, "bold"),
+        'body': ("Segoe UI", 12),
+        'small': ("Segoe UI", 10),
+        'mono': ("Consolas", 11),
+        'accent': ("Segoe UI Semibold", 13, "bold")
+    },
+    'spacing': {
+        'xs': 6,
+        'sm': 12,
+        'md': 20,
+        'lg': 28,
+        'xl': 36
+    },
+    'radius': {
+        'sm': 8,
+        'md': 12,
+        'lg': 16,
+        'xl': 20
+    },
+    'animations': {
+        'duration': 250,
+        'hover_scale': 1.02,
+        'pulse_speed': 2000
+    },
+    'layout': {
+        'sidebar_width': 260,
+        'header_height': 100,
+        'statusbar_height': 55,
+        'card_min_height': 120
+    },
+    'shadows': {
+        'small': '0 2px 12px rgba(0, 0, 0, 0.15)',
+        'medium': '0 6px 20px rgba(0, 0, 0, 0.25)',
+        'large': '0 12px 40px rgba(0, 0, 0, 0.35)',
+        'glow': '0 0 24px'
+    }
 }
-}
 
-SIDEBAR_ITEMS =[
-{'icon':'🏠','text':'Home','id':'home'},
-{'icon':'🎮','text':'Champions','id':'champions'},
-{'icon':'⚡','text':'Automation','id':'automation'},
-{'icon':'📊','text':'Status','id':'status'},
-{'icon':'ℹ️','text':'About','id':'about'},
-{'icon':'⚙️','text':'Settings','id':'settings'}
+# ============================================================
+# SIDEBAR NAVIGATION ITEMS
+# ============================================================
+SIDEBAR_ITEMS = [
+    {'icon': '🏠', 'text': 'Home', 'id': 'home', 'desc': 'Dashboard'},
+    {'icon': '🎯', 'text': 'Champions', 'id': 'champions', 'desc': 'Selection'},
+    {'icon': '⚡', 'text': 'Automation', 'id': 'automation', 'desc': 'Systems'},
+    {'icon': '📊', 'text': 'Status', 'id': 'status', 'desc': 'Monitor'},
+    {'icon': 'ℹ️', 'text': 'About', 'id': 'about', 'desc': 'Info'},
+    {'icon': '⚙️', 'text': 'Settings', 'id': 'settings', 'desc': 'Config'}
 ]
 
-COLORS ={
-'name':'Tiamat',
-'app_name':'TIAMAT',
-'app_icon':'⚡',
-'icon_file':'icons/tiamat.ico',
+# ============================================================
+# COLOR THEMES - NOTE:
+# This is just a fallback. The real themes are managed by
+# ui/theme/theme_manager.py which handles:
+# - Default themes
+# - Custom themes
+# - Theme encryption
+# - Theme import/export
+# ============================================================
 
+# Fallback default colors (if theme_manager fails)
+COLORS = {
+    'name': 'Midnight Purple',
+    'app_name': 'LEAGUE TOOLKIT',
+    'app_icon': '🛡️',
+    'icon_file': 'tiamat.ico',
+    
+    'primary': '#8B5CF6',
+    'secondary': '#EC4899',
+    'accent': '#F59E0B',
+    
+    'success': '#10B981',
+    'warning': '#F59E0B',
+    'danger': '#EF4444',
+    'info': '#3B82F6',
+    
+    'bg_dark': '#0F0A1F',
+    'bg_medium': '#1A1229',
+    'bg_light': '#251B35',
+    'bg_card': '#1E1532',
+    'bg_elevated': '#2A2040',
+    'bg_hover': '#342952',
+    
+    'text_primary': '#F3F4F6',
+    'text_secondary': '#D1D5DB',
+    'text_tertiary': '#9CA3AF',
+    'text_dark': '#111827',
+    
+    'border_color': '#2A2040',
+    'border_accent': '#8B5CF6',
+}
 
-'primary':'#B000FF',
-'secondary':'#7A00D4',
-'accent':'#FF00E5',
-'success':'#C74FFF',
-'warning':'#FF0099',
-'danger':'#FF3399',
-'info':'#8F4FFF',
-
-
-'bg_dark':'#05000A',
-'bg_medium':'#0D0218',
-'bg_light':'#180430',
-'bg_card':'#120326',
-
-
-'text_primary':'#F0E0FF',
-'text_secondary':'#B88FFF',
-'text_dark':'#0B0015',
-
-
-'purple':'#9F00FF',
-'pink':'#FF00E5'
+# Legacy support - redirects to theme_manager
+THEMES = {
+    'midnight_purple': COLORS.copy()
 }

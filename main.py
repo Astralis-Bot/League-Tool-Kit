@@ -11,6 +11,7 @@ from ui.champion_manager import ChampionManager
 from ui.modern_instalock_config import open_modern_instalock_config 
 from ui.modern_autoban_config import open_modern_autoban_config 
 
+
 from core.api_manager import api_manager 
 
 try:
@@ -48,7 +49,7 @@ class LeagueToolkitApp(ctk.CTk):
         print("=" * 60)
 
         self.title("League Toolkit v2.0")
-        self.geometry("1200x700")
+        self.geometry("1200x1150")
         self.minsize(1000, 600)
 
         print("\nInicializando Managers...")
@@ -138,19 +139,7 @@ class LeagueToolkitApp(ctk.CTk):
         print("\nCarregando view inicial...")
         self.switch_category('home')
 
-        try:
-            icon_path = self.colors.get('icon_file', 'tiamat.ico')
-            if os.path.exists(icon_path):
-                self.iconbitmap(icon_path)
-                print(f"Icone carregado: {icon_path}")
-        except Exception as e:
-            print(f"Nao foi possivel carregar icone: {e}")
-
-        self.protocol("WM_DELETE_WINDOW", self.on_closing)
-
-        print("\n" + "=" * 60)
-        print("LEAGUE TOOLKIT INICIADO COM SUCESSO!")
-        print("=" * 60 + "\n")
+        # Setup do ícone (removida duplicação)
         self._setup_icon()
 
         self.protocol("WM_DELETE_WINDOW", self.on_closing)
@@ -164,7 +153,6 @@ class LeagueToolkitApp(ctk.CTk):
         try:
             icon_path = self.colors.get('icon_file', 'tiamat.ico')
             
-
             if not os.path.exists(icon_path):
                 print(f"⚠️ Arquivo de ícone não encontrado: {icon_path}")
 
@@ -230,6 +218,7 @@ class LeagueToolkitApp(ctk.CTk):
 
             print(f"View '{category_id}' carregada")
 
+            # Sincroniza ícones de campeões após carregar a view
             self.after(150, lambda: self.champion_manager.sync_icons_after_view_change(self))
 
         except Exception as e:
@@ -243,6 +232,7 @@ class LeagueToolkitApp(ctk.CTk):
         open_modern_instalock_config(self, self)
 
     def update_instalock_card(self):
+        """Atualiza descrição e ícone do card de instalock"""
         if hasattr(self.ui_manager, 'instalock_card') and self.ui_manager.instalock_card:
             status_parts = [self.instalock_champion]
 
@@ -254,6 +244,7 @@ class LeagueToolkitApp(ctk.CTk):
             description = f"Selected: {' | '.join(status_parts)}"
             self.ui_manager.instalock_card.update_description(description)
 
+            # Atualiza ícone se houver campeão selecionado
             if self.instalock_champion and self.instalock_champion != "Random":
                 self.champion_manager.update_instalock_display(self, self.instalock_champion)
 
@@ -376,6 +367,7 @@ class LeagueToolkitApp(ctk.CTk):
             messagebox.showerror("Erro", f"Erro ao abrir Porofessor: {e}")
 
     def update_feature_cards(self):
+        """Atualiza todos os cards de features com estado correto"""
         for card in self.ui_manager.feature_cards:
             try:
                 if 'INSTALOCK' in card.title_text.upper():
@@ -385,7 +377,12 @@ class LeagueToolkitApp(ctk.CTk):
                 elif 'AUTO BAN' in card.title_text.upper():
                     card.set_enabled(self.autoban_enabled)
                     if self.autoban_champion:
-                        card.update_description(f"Selected: {self.autoban_champion}")
+                        parts = [f"1st: {self.autoban_champion}"]
+                        if self.autoban_backup_2:
+                            parts.append(f"2nd: {self.autoban_backup_2}")
+                        if self.autoban_backup_3:
+                            parts.append(f"3rd: {self.autoban_backup_3}")
+                        card.update_description(" | ".join(parts))
                     else:
                         card.update_description("No champion selected")
 
@@ -395,6 +392,10 @@ class LeagueToolkitApp(ctk.CTk):
 
             except Exception as e:
                 print(f"Erro ao atualizar card: {e}")
+        
+        # Atualiza contador de ativos
+        if hasattr(self.ui_manager, 'update_active_count'):
+            self.ui_manager.update_active_count()
 
     def get_status_data(self):
         instalock_status = None 
