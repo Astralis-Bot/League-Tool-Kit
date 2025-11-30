@@ -35,9 +35,6 @@ Instantly opens Porofessor analysis upon entering champion select.
 ### 🎨 Theme Selector  
 Manage, import, and switch between custom themes.
 
-### 🧿 Auto Runes *(Coming Soon)*  
-Automatically imports the best rune page for your champion based on meta builds or a specific player’s rune page.  
-This feature is currently under development.
 
 
 ---
@@ -45,7 +42,7 @@ This feature is currently under development.
 ## 📦 Releases
 
 🔽 **Latest Release (BETA)**  
-➡️ [Download v2.0](https://github.com/younk5/League-Tool-Kit/releases/latest)
+➡️ [Download v2.2.0](https://github.com/younk5/League-Tool-Kit/releases/latest)
 
 All releases:  
 ➡️ https://github.com/younk5/League-Tool-Kit/releases

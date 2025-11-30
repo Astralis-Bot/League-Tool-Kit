@@ -30,7 +30,7 @@ class ThemeSwitcher(ctk.CTkFrame):
         
         import_btn = ctk.CTkButton(
             header,
-            text="📥 IMPORTAR TEMA OFICIAL",
+            text="🔥 IMPORTAR TEMA OFICIAL",
             font=("Segoe UI", 11, "bold"),
             fg_color=self.current_colors['primary'],
             hover_color=self.current_colors['secondary'],
@@ -97,54 +97,110 @@ class ThemeSwitcher(ctk.CTkFrame):
             for theme_id, theme_name in default_themes.items():
                 self._create_theme_card(theme_id, theme_name, current, False)
         
-        # Temas importados
+        # Temas importados (PREMIUM)
         if custom_themes:
-            ctk.CTkLabel(
+            premium_header = ctk.CTkFrame(
                 self.scroll_frame,
-                text="✨ TEMAS IMPORTADOS",
+                fg_color=self.current_colors['bg_card'],
+                corner_radius=10,
+                border_width=2,
+                border_color=self.current_colors['accent']
+            )
+            premium_header.pack(fill="x", pady=(20, 10), padx=10)
+            
+            header_content = ctk.CTkFrame(premium_header, fg_color="transparent")
+            header_content.pack(fill="x", padx=15, pady=12)
+            
+            title_row = ctk.CTkFrame(header_content, fg_color="transparent")
+            title_row.pack(fill="x")
+            
+            ctk.CTkLabel(
+                title_row,
+                text="✨",
+                font=("Segoe UI Emoji", 16)
+            ).pack(side="left", padx=(0, 8))
+            
+            ctk.CTkLabel(
+                title_row,
+                text="PREMIUM THEMES",
                 font=("Segoe UI", 12, "bold"),
                 text_color=self.current_colors['accent']
-            ).pack(anchor="w", pady=(20, 10), padx=10)
+            ).pack(side="left")
+            
+            ctk.CTkLabel(
+                title_row,
+                text=f"{len(custom_themes)} imported",
+                font=("Segoe UI", 9),
+                text_color=self.current_colors['text_secondary']
+            ).pack(side="left", padx=(10, 0))
+            
+            ctk.CTkLabel(
+                header_content,
+                text="Exclusive designs with enhanced visual effects",
+                font=("Segoe UI", 9),
+                text_color=self.current_colors['text_secondary']
+            ).pack(anchor="w", pady=(4, 0))
             
             for theme_id, theme_name in custom_themes.items():
                 self._create_theme_card(theme_id, theme_name, current, True)
 
     def _create_theme_card(self, theme_id, theme_name, current_theme, is_custom):
-        """Cria card de tema"""
+        """Cria card de tema com efeitos especiais para premium"""
         theme_colors = self.theme_manager.get_theme(theme_id)
         is_selected = theme_id == current_theme
         
-        # Card principal
+        # Card com efeitos especiais para temas premium
+        border_width = 3 if is_selected else 2
+        corner_radius = 12 if is_custom else 10
+        
         card = ctk.CTkFrame(
             self.scroll_frame,
             fg_color=theme_colors['bg_medium'],
-            border_width=3 if is_selected else 2,
+            border_width=border_width,
             border_color=theme_colors['primary'],
-            corner_radius=10
+            corner_radius=corner_radius
         )
         card.pack(fill="x", pady=8, padx=5)
+        
+        # Efeito de brilho sutil para temas premium
+        if is_custom:
+            self._add_premium_glow(card, theme_colors)
         
         container = ctk.CTkFrame(card, fg_color="transparent")
         container.pack(fill="x", expand=True)
         
-        # Preview de cores
+        # Preview de cores com efeito especial para premium
         preview = ctk.CTkFrame(container, fg_color="transparent")
         preview.pack(side="left", padx=12, pady=10)
         
         dots = ctk.CTkFrame(preview, fg_color="transparent")
         dots.pack()
         
-        for color in [theme_colors['primary'], theme_colors['secondary'], 
-                      theme_colors['accent']]:
+        colors_to_show = [theme_colors['primary'], theme_colors['secondary'], theme_colors['accent']]
+        
+        for i, color in enumerate(colors_to_show):
+            # Dots maiores e com sombra para temas premium
+            dot_size = 24 if is_custom else 20
+            dot_radius = 6 if is_custom else 4
+            
             dot = ctk.CTkFrame(
                 dots,
-                width=20,
-                height=20,
+                width=dot_size,
+                height=dot_size,
                 fg_color=color,
-                corner_radius=4
+                corner_radius=dot_radius
             )
             dot.pack(side="left", padx=4)
             dot.pack_propagate(False)
+            
+            # Adiciona ícone especial no primeiro dot de temas premium
+            if is_custom and i == 0:
+                ctk.CTkLabel(
+                    dot,
+                    text="✨",
+                    font=("Segoe UI Emoji", 10),
+                    text_color="white"
+                ).pack(expand=True)
         
         # Informações
         info = ctk.CTkFrame(container, fg_color="transparent")
@@ -161,14 +217,32 @@ class ThemeSwitcher(ctk.CTkFrame):
         ).pack(side="left")
         
         if is_custom:
-            ctk.CTkLabel(
+            # Badge animado premium
+            badge_frame = ctk.CTkFrame(
                 name_container,
-                text="OFICIAL",
-                font=("Segoe UI", 8, "bold"),
-                text_color=theme_colors['bg_dark'],
                 fg_color=theme_colors['accent'],
-                corner_radius=4
-            ).pack(side="left", padx=(8, 0), ipadx=6, ipady=2)
+                corner_radius=6
+            )
+            badge_frame.pack(side="left", padx=(8, 0))
+            
+            badge_content = ctk.CTkFrame(badge_frame, fg_color="transparent")
+            badge_content.pack(padx=8, pady=3)
+            
+            ctk.CTkLabel(
+                badge_content,
+                text="✨",
+                font=("Segoe UI Emoji", 10)
+            ).pack(side="left", padx=(0, 4))
+            
+            ctk.CTkLabel(
+                badge_content,
+                text="PREMIUM",
+                font=("Segoe UI", 8, "bold"),
+                text_color=theme_colors['bg_dark']
+            ).pack(side="left")
+            
+            # Efeito de brilho
+            self._animate_premium_badge(badge_frame, theme_colors['accent'])
         
         ctk.CTkLabel(
             info,
@@ -177,18 +251,22 @@ class ThemeSwitcher(ctk.CTkFrame):
             text_color=theme_colors['text_secondary']
         ).pack(anchor="w", pady=(2, 0))
         
-        # Botões
+        # Botões com estilo especial para premium
         btn_container = ctk.CTkFrame(container, fg_color="transparent")
         btn_container.pack(side="right", padx=12, pady=8)
         
+        # Botão de seleção com gradiente visual para premium
+        select_text = "✓ ATIVO" if is_selected else ("⭐ SELECIONAR" if is_custom else "SELECIONAR")
+        select_width = 140 if is_custom else 120
+        
         select_btn = ctk.CTkButton(
             btn_container,
-            text="✓ ATIVO" if is_selected else "SELECIONAR",
+            text=select_text,
             font=("Segoe UI", 10, "bold"),
             fg_color=theme_colors['primary'],
             text_color=theme_colors['bg_dark'],
             hover_color=theme_colors['secondary'],
-            width=120,
+            width=select_width,
             height=35,
             command=lambda: self._select_theme(theme_id),
             state="disabled" if is_selected else "normal"
@@ -209,7 +287,97 @@ class ThemeSwitcher(ctk.CTkFrame):
             )
             delete_btn.pack(side="left")
         
+        # Info extra para temas premium (fora do container de botões)
+        if is_custom:
+            premium_info = ctk.CTkFrame(
+                container,
+                fg_color=self._lighten_color(theme_colors['bg_medium'], 1.1),
+                corner_radius=8
+            )
+            premium_info.pack(fill="x", pady=(8, 0), padx=12)
+            
+            info_content = ctk.CTkFrame(premium_info, fg_color="transparent")
+            info_content.pack(fill="x", padx=12, pady=6)
+            
+            ctk.CTkLabel(
+                info_content,
+                text="✨ Premium Theme",
+                font=("Segoe UI", 9, "bold"),
+                text_color=theme_colors['accent']
+            ).pack(side="left")
+            
+            ctk.CTkLabel(
+                info_content,
+                text="• Exclusive design • Official source",
+                font=("Segoe UI", 8),
+                text_color=theme_colors['text_secondary']
+            ).pack(side="left", padx=(8, 0))
+        
         self.theme_buttons[theme_id] = (card, select_btn)
+        
+        # Efeito hover especial para temas premium
+        if is_custom:
+            def on_enter(e):
+                card.configure(border_width=4)
+            
+            def on_leave(e):
+                card.configure(border_width=3 if is_selected else 2)
+            
+            card.bind("<Enter>", on_enter)
+            card.bind("<Leave>", on_leave)
+            container.bind("<Enter>", on_enter)
+            container.bind("<Leave>", on_leave)
+
+    def _animate_premium_badge(self, badge_frame, color):
+        """Anima badge premium com efeito de pulso"""
+        def pulse():
+            if badge_frame.winfo_exists():
+                try:
+                    # Alterna entre cor normal e mais clara
+                    current_color = badge_frame.cget("fg_color")
+                    if current_color == color:
+                        # Versão mais clara
+                        badge_frame.configure(fg_color=self._lighten_color(color, 1.2))
+                    else:
+                        badge_frame.configure(fg_color=color)
+                    
+                    badge_frame.after(800, pulse)
+                except:
+                    pass
+        
+        pulse()
+    
+    def _lighten_color(self, hex_color, factor):
+        """Clareia uma cor hexadecimal"""
+        try:
+            hex_color = hex_color.lstrip('#')
+            r, g, b = tuple(int(hex_color[i:i+2], 16) for i in (0, 2, 4))
+            
+            r = min(255, int(r * factor))
+            g = min(255, int(g * factor))
+            b = min(255, int(b * factor))
+            
+            return f'#{r:02x}{g:02x}{b:02x}'
+        except:
+            return hex_color
+    
+    def _add_premium_glow(self, card, theme_colors):
+        """Adiciona efeito de brilho sutil em temas premium"""
+        def glow_effect():
+            if card.winfo_exists():
+                try:
+                    # Alterna sutil brilho na borda
+                    current_width = card.cget("border_width")
+                    if current_width == 2:
+                        card.configure(border_width=3)
+                    else:
+                        card.configure(border_width=2)
+                    
+                    card.after(1500, glow_effect)
+                except:
+                    pass
+        
+        glow_effect()
 
     def _select_theme(self, theme_id):
         """Seleciona tema"""
@@ -222,7 +390,7 @@ class ThemeSwitcher(ctk.CTkFrame):
     def _import_theme(self):
         """Importa tema oficial (.ltt)"""
         file_path = filedialog.askopenfilename(
-            title="Selecione o tema oficial",
+            title="Select Premium Theme",
             filetypes=[("League Toolkit Theme", "*.ltt"), ("All files", "*.*")],
             initialdir=os.getcwd()
         )
@@ -231,11 +399,15 @@ class ThemeSwitcher(ctk.CTkFrame):
             success, message = self.theme_manager.import_theme(file_path)
             
             if success:
-                messagebox.showinfo("✅ Sucesso", message)
+                messagebox.showinfo(
+                    "✨ Success", 
+                    f"{message}\n\nYour premium theme is now available with exclusive features!",
+                    icon='info'
+                )
                 self._refresh_theme_list()
                 self.current_colors = self.theme_manager.get_current_theme()
             else:
-                messagebox.showerror("❌ Erro", message)
+                messagebox.showerror("❌ Error", message)
 
     def _delete_theme(self, theme_id, theme_name):
         """Deleta tema importado"""

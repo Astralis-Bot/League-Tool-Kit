@@ -41,6 +41,29 @@ class Updater:
         self.downloading = False
         self.download_progress = 0
 
+    def check_on_startup(self):
+        """
+        Verifica atualizações ao iniciar (modo silencioso)
+        Apenas mostra notificação se houver atualização
+        """
+        def check_thread():
+            try:
+                has_update, version = self.check_for_updates(silent=True)
+                
+                if has_update:
+                    print(f"✅ Nova versão disponível: {version}")
+                    # Mostra notificação apenas se houver atualização
+                    if self.app:
+                        self.app.after(0, self._show_update_notification)
+                else:
+                    print("✅ Aplicativo está atualizado")
+                    
+            except Exception as e:
+                print(f"⚠️ Erro na verificação de atualização: {e}")
+        
+        # Executa em thread separada para não bloquear a UI
+        threading.Thread(target=check_thread, daemon=True).start()
+
     def check_for_updates(self, silent=True):
         """
         Verifica se há atualizações disponíveis
@@ -121,6 +144,7 @@ class Updater:
             self.checking = False
 
     def _show_update_notification(self):
+        """Mostra notificação de atualização disponível"""
         response = messagebox.askyesno(
             "🔔 Atualização Disponível!",
             f"Uma nova versão está disponível!\n\n"
@@ -132,11 +156,8 @@ class Updater:
         if response:
             self.download_and_install()
 
-    # ============================================================
-    # 🔥 AQUI ESTÁ A ALTERAÇÃO PRINCIPAL (download na pasta do app)
-    # ============================================================
     def download_and_install(self, callback=None):
-
+        """Baixa e instala a atualização"""
         if self.downloading:
             messagebox.showwarning("⚠️", "Já existe um download em progresso.")
             return
@@ -151,7 +172,7 @@ class Updater:
 
                 print(f"\n📥 Baixando atualização v{self.latest_version}...")
 
-                # 🔥 Pasta do próprio app
+                # Pasta do próprio app
                 app_dir = os.path.dirname(os.path.abspath(sys.argv[0]))
 
                 filename = os.path.basename(self.download_url)
@@ -184,6 +205,11 @@ class Updater:
 
             except Exception as e:
                 print(f"❌ Erro: {e}")
+                if self.app:
+                    self.app.after(0, lambda: messagebox.showerror(
+                        "Erro no Download",
+                        f"Não foi possível baixar a atualização:\n{e}"
+                    ))
 
             finally:
                 self.downloading = False
@@ -191,9 +217,8 @@ class Updater:
 
         threading.Thread(target=download_thread, daemon=True).start()
 
-    # ============================================================
-
     def _install_update(self, update_file):
+        """Instala a atualização baixada"""
         try:
             print("\n🔧 Instalando atualização...")
 
@@ -218,8 +243,13 @@ class Updater:
 
         except Exception as e:
             print(f"❌ Erro ao instalar: {e}")
+            messagebox.showerror(
+                "Erro na Instalação",
+                f"Não foi possível instalar a atualização:\n{e}"
+            )
 
     def _extract_and_replace(self, zip_file):
+        """Extrai e substitui arquivos da atualização"""
         try:
             print("📦 Extraindo...")
 
@@ -232,7 +262,7 @@ class Updater:
             with zipfile.ZipFile(zip_file, 'r') as zip_ref:
                 zip_ref.extractall(temp_extract)
 
-            print("🔄 Substituindo arquivos...")
+            print("📄 Substituindo arquivos...")
 
             batch_script = os.path.join(tempfile.gettempdir(), "update_ltk.bat")
 
@@ -252,6 +282,7 @@ class Updater:
             raise
 
     def get_release_notes(self):
+        """Retorna as notas da versão"""
         return self.release_notes or "Sem notas."
 
 
