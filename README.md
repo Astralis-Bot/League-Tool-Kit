@@ -42,7 +42,7 @@ Manage, import, and switch between custom themes.
 ## 📦 Releases
 
 🔽 **Latest Release (BETA)**  
-➡️ [Download v2.2.0](https://github.com/younk5/League-Tool-Kit/releases/latest)
+➡️ [Download v2.2.1](https://github.com/younk5/League-Tool-Kit/releases/latest)
 
 All releases:  
 ➡️ https://github.com/younk5/League-Tool-Kit/releases

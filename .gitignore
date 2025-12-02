@@ -1,5 +1,10 @@
-__pycache__
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Specific files
+a.py
 create.py
 tiamat.ico
-creater.py
-a.py

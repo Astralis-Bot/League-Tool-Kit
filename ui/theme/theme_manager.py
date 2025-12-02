@@ -26,7 +26,6 @@ class ThemeManager:
     Gerenciador de temas com proteção criptográfica
     Apenas temas assinados pelo desenvolvedor são aceitos
     """
-    # FIX: Definir como atributo de classe (não de instância)
     _DEVELOPER_SECRET = b'7f3a9c2e5b8d1f4a6c9e3b7d2f5a8c1e4b7d9f3a6c2e5b8d1f4a7c9e2b5d8f1a3'
     _SALT = b'e4b7d1f9a3c6e2b8d5f1a7c4e9b2d6f3a8c1e5b9d2f7a4c8e3b6d1f5a9c2e7b4d'
 
