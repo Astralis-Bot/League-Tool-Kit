@@ -1,8 +1,8 @@
 # 🎮 League Toolkit (LTK)
 
-**Premium League of Legends Automation Toolkit** - Um aplicativo Electron completo e profissional para automação de funcionalidades do League of Legends.
+**Premium League of Legends Automation Toolkit** - Um aplicativo Electron completo para automação de funcionalidades do League of Legends.
 
-![Version](https://img.shields.io/badge/version-2.0.0-blue.svg)
+![Version](https://img.shields.io/badge/version-3.0.0-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 ![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20MacOS%20%7C%20Linux-lightgrey.svg)
 
@@ -24,17 +24,9 @@
 
 ### 🎲 Ações de Jogo
 - **Reveal Lobby** - Abre Porofessor.gg com informações dos jogadores
-- **Dodge** - Sair da seleção de campeões
 - **Remover Amigos** - Remove todos os amigos de uma vez
 - **Restart Client** - Reinicia o cliente do LoL
-- **Chat Toggle** - Desconectar/reconectar do chat
 
-### 📊 Estatísticas e Análise
-- **Histórico de Partidas** - Últimas 20 partidas
-- **Estatísticas Detalhadas** - KDA, winrate, etc
-- **Calculadora de Elo** - Quantos jogos para próximo rank
-- **Campeões Mais Jogados** - Top 5 campeões
-- **Sistema de Sequências** - Win/loss streaks
 
 ### 🔧 Sistema Avançado
 - **Logs em Tempo Real** - Sistema completo de logging
