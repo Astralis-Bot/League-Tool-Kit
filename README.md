@@ -347,8 +347,8 @@ Abra uma issue no GitHub: [Issues](https://github.com/seu-usuario/league-toolkit
 Participe das discussões: [Discussions](https://github.com/seu-usuario/league-toolkit/discussions)
 
 ### 📧 Contato
-- Twitter/X: x.com/novatheprince
-- Discord: starykk
+- Twitter/X: [novatheprince](https://x.com/novaktheprince)
+- Discord: [starykk](https://discord.com/users/424379062845177876)
 
 ---
 
