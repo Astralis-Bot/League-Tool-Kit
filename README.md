@@ -53,7 +53,7 @@
 
 ### 1. Clone ou Baixe o Projeto
 ```bash
-git clone <seu-repositorio>
+git clone https://github.com/Astralis-Bot/League-Tool-Kit
 cd league-toolkit
 ```
 
@@ -273,8 +273,8 @@ npm install --global windows-build-tools
 ⚠️ **ATENÇÃO:**
 - Riot Games **não endossa** ferramentas de terceiros
 - Use por **sua conta e risco**
-- **Não abuse** das funcionalidades (ex: dodge excessivo)
-- Recomendamos uso **apenas para aprendizado**
+- **Não abuse** das funcionalidades (ex: troca de background excessivo)
+
 
 ---
 
@@ -332,14 +332,8 @@ in the Software without restriction...
 
 ## 🌟 Roadmap Futuro
 
-- [ ] Suporte a múltiplas contas
-- [ ] Profiles salvos (configs predefinidas)
-- [ ] Integração com Discord (Rich Presence)
-- [ ] Estatísticas avançadas com gráficos
 - [ ] Sistema de notificações
 - [ ] Temas customizáveis
-- [ ] Suporte a plugins
-- [ ] WebSocket em tempo real
 - [ ] Dashboard web (opcional)
 
 ---
@@ -353,17 +347,8 @@ Abra uma issue no GitHub: [Issues](https://github.com/seu-usuario/league-toolkit
 Participe das discussões: [Discussions](https://github.com/seu-usuario/league-toolkit/discussions)
 
 ### 📧 Contato
-- Email: seu-email@example.com
-- Discord: SeuDiscord#0000
-
----
-
-## 🙏 Agradecimentos
-
-- **Riot Games** - Por criar League of Legends
-- **Community Dragon** - Por fornecer dados de skins e campeões
-- **Electron Team** - Pelo incrível framework
-- **Comunidade LoL** - Por feedback e suporte
+- Twitter/X: x.com/novatheprince
+- Discord: starykk
 
 ---
 
@@ -381,7 +366,7 @@ Este projeto **NÃO** é afiliado, associado, autorizado, endossado por, ou de q
 
 **⭐ Se este projeto te ajudou, considere dar uma estrela! ⭐**
 
-Made with ❤️ by LTK Team
+younk  ★
 
 [⬆ Voltar ao topo](#-league-toolkit-ltk)
 
